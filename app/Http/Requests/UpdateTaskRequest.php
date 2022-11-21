@@ -24,7 +24,7 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_name' => 'string'
+            'task_name' => ['string']
         ];
     }
 }

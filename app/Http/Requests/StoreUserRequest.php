@@ -25,10 +25,10 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alfa',
+            'name' => ['required','alfa'],
             'age' => ['required', 'numeric', 'gt:0'],
-            'gender' => 'required|alfa',
-            'email' => 'required|email:rfc,dns',
+            'gender' => ['required', 'alfa', Rule::in(['male', 'famele'])],
+            'email' => ['required, email:rfc,dns'],
             'password' => [
                 'required',
                 Password::min(8)->letters()->mixedCase()->numbers()->symbols()

@@ -24,12 +24,12 @@ class UpdateAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'street' => 'string',
-            'number' => 'numeric',
-            'city' => 'alpha',
-            'state' => 'alpha',
-            'country' => 'alpha',
-            'user_id' => 'numeric'
+            'street' => ['string'],
+            'number' => ['numeric'],
+            'city' => ['alpha'],
+            'state' => ['alpha'],
+            'country' => ['alpha'],
+            'user_id' => ['numeric', 'gt:0']
         ];
     }
 }
