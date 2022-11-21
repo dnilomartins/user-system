@@ -12,16 +12,11 @@ class AddressController extends Controller
         return Address::all();
     }
 
-    public function store(Request $request)
+    public function store(StoreAddressRequest $request)
     {
-        return Address::create([
-            'street' => $request->street,
-            'number' => $request->number,
-            'city' => $request->city,
-            'state' => $request->state,
-            'country' => $request->country,
-            'user_id' => $request->user_id
-        ]);
+        $address = $request->validated();
+
+        return Address::create($address);
     }
 
     public function show(Address $address)
@@ -29,15 +24,10 @@ class AddressController extends Controller
         return $address;
     }
 
-    public function update(Request $request, Address $address)
+    public function update(UpdateAddressRequest $request, Address $address)
     {
-        $address->update([
-            'street' => $request->street,
-            'number' => $request->number,
-            'city' => $request->city,
-            'state' => $request->state,
-            'country' => $request->country
-        ]);
+        $address = $request->validated();
+
         return $address;
     }
 

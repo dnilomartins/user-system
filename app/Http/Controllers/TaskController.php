@@ -12,12 +12,10 @@ class TaskController extends Controller
         return Task::all();
     }
 
-    public function store(Request $request)
+    public function store(StoreTaksRequest $request)
     {
-        return Task::create([
-            'task_name'=>$request->task_name,
-            'user_id' => $request->user_id
-        ]);
+        $task = $request->validated();
+        return Task::create($task);
     }
 
     public function show(Task $task)
@@ -25,11 +23,9 @@ class TaskController extends Controller
         return $task;
     }
 
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        $task->update([
-            'task_name'=>$request->task_name
-        ]);
+        $task = $request->update();
         return $task;
     }
     

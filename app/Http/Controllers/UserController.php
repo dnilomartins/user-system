@@ -12,16 +12,10 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $user = [
-            'name' => $request->name,
-            'age' => $request->age,
-            'gender' => $request->gender,
-            'email' => $request->email,
-            'password' => $request->password
-        ];
-
+        $user = $request->validated();
+        
         return User::create($user);
     }
 
@@ -30,15 +24,9 @@ class UserController extends Controller
         return $user;
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'age' => $request->age,
-            'gender' => $request->gender
-        ]);
+        $user = request->validated();
         return $user;
     }
 
