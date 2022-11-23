@@ -29,7 +29,6 @@ class UpdateAddressRequest extends FormRequest
             'city' => ['alpha'],
             'state' => ['alpha'],
             'country' => ['alpha'],
-            'user_id' => ['numeric', 'gt:0']
         ];
     }
 }
