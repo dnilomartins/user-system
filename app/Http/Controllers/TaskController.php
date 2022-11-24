@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
@@ -12,7 +13,7 @@ class TaskController extends Controller
         return Task::all();
     }
 
-    public function store(StoreTaksRequest $request)
+    public function store(StoreTaskRequest $request)
     {
         $task = $request->validated();
         return Task::create($task);
@@ -32,10 +33,8 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $response = $task->delete();
-    
         return response()->json([
-            'content' => '',
-            'response' => $response,
+            'message' => $response ? 'Tarefa deletado com sucesso!' : 'Erro ao deletar tarefa!',
         ], $response ? 204 : 500);
     }
 

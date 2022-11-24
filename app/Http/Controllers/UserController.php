@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,7 +16,6 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = $request->validated();
-        
         return User::create($user);
     }
 
@@ -26,17 +26,16 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user = request->validated();
+        $user = $request->validated();
         return $user;
     }
 
     public function destroy(User $user)
     {
         $response = $user->delete();
-    
+
         return response()->json([
-            'content' => '',
-            'response' => $response,
+            'message' => $response ? 'Usuário deletado com sucesso!' : 'Erro ao deletar usuário!',
         ], $response ? 204 : 500);
     }
 }

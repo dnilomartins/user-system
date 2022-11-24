@@ -24,12 +24,12 @@ class StoreAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'street' => 'string',
-            'number' => 'numeric',
-            'city' => 'alpha',
-            'state' => 'alpha',
-            'country' => 'alpha',
-            'user_id' => 'numeric'
+            'street' => ['required', 'string'],
+            'number' => ['required', 'integer'],
+            'city' => ['required', 'alpha'],
+            'state' => ['required', 'alpha'],
+            'country' => ['required', 'alpha'],
+            'user_id' => ['required', 'integer', 'gt:0', 'required', 'exists:users,id']
         ];
     }
 }
