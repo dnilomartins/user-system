@@ -33,7 +33,6 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $response = $address->delete();
-
         return response()->json([
             'message' => $response ? 'Endereço deletado com sucesso!' : 'Erro ao deletar endereço!',
         ], $response ? 204 : 500);
