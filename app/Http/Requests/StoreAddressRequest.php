@@ -25,11 +25,11 @@ class StoreAddressRequest extends FormRequest
     {
         return [
             'street' => ['required', 'string'],
-            'number' => ['required', 'integer'],
+            'number' => ['required', 'integer', 'gt:0'],
             'city' => ['required', 'alpha'],
             'state' => ['required', 'alpha'],
             'country' => ['required', 'alpha'],
-            'user_id' => ['required', 'integer', 'gt:0', 'required', 'exists:users,id']
+            'user_id' => ['required', 'integer', 'gt:0', 'exists:users,id']
         ];
     }
 }
