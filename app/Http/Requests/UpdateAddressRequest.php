@@ -25,7 +25,7 @@ class UpdateAddressRequest extends FormRequest
     {
         return [
             'street' => ['required', 'string'],
-            'number' => ['required', 'numeric'],
+            'number' => ['required', 'integer', 'gt:0'],
             'city' => ['required', 'alpha'],
             'state' => ['required', 'alpha'],
             'country' => ['required', 'alpha'],
