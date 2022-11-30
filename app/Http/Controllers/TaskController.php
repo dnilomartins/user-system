@@ -3,14 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Task::all();
+        return Task::when($request->task_name, function($query) use($request){
+            $query->where('task_name', 'ILIKE', '%'. $request->task_name .'%');
+        })
+        ->when($request->completed, function($query) use($request){
+            $query->where('completed', 'LIKE', '%'. $request->completed .'%');
+        })
+        ->when($request->order_by_created_at, function($query) use($request){
+            $query->orderBy('created_at', $request->order_by_created_at);
+        })
+        ->get();
     }
 
     public function store(StoreTaskRequest $request)
