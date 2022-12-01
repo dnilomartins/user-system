@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreAddressRequest;
 use App\Http\Requests\UpdateAddressRequest;
-use App\Models\Address;
 
 class AddressController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Address::all();
+        return Address::when($request->street, function($query) use($request){
+            $query->where('street', 'ILIKE', '%'. $request->street .'%');
+        })
+        ->when($request->number, function($query) use($request){
+            $query->where('number', 'ILIKE', '%'. $request->number .'%');
+        })
+        ->when($request->order_by_created_at, function($query) use($request){
+            $query->orderBy('created_at', $request->order_by_created_at);
+        })
+        ->get();
     }
 
     public function store(StoreAddressRequest $request)
