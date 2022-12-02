@@ -14,7 +14,7 @@ class AddressController extends Controller
         return Address::when($request->street, function($query) use($request){
             $query->where('street', 'ILIKE', '%'. $request->street .'%');
         })
-        ->when($request->number, function($query) use($request){
+        ->when(isset($request->number), function($query) use($request){
             $query->where('number', 'ILIKE', '%'. $request->number .'%');
         })
         ->when($request->order_by_created_at, function($query) use($request){

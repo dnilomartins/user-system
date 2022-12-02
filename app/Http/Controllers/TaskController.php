@@ -14,8 +14,8 @@ class TaskController extends Controller
         return Task::when($request->task_name, function($query) use($request){
             $query->where('task_name', 'ILIKE', '%'. $request->task_name .'%');
         })
-        ->when($request->completed, function($query) use($request){
-            $query->where('completed', 'LIKE', '%'. $request->completed .'%');
+        ->when(isset($request->completed), function($query) use($request){
+            $query->where('completed', $request->completed);
         })
         ->when($request->order_by_created_at, function($query) use($request){
             $query->orderBy('created_at', $request->order_by_created_at);

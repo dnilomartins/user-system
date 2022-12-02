@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => ['required','alpha'],
             'age' => ['required', 'integer', 'gt:0'],
-            'gender' => ['required', 'alpha', Rule::in(['male', 'famele'])],
+            'gender' => ['required', 'alpha', Rule::in(['male', 'female'])],
             'email' => ['required', 'email:rfc,dns'],
             'password' => [
                 'required',
