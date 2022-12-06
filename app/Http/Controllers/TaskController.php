@@ -20,6 +20,13 @@ class TaskController extends Controller
         ->when($request->order_by_created_at, function($query) use($request){
             $query->orderBy('created_at', $request->order_by_created_at);
         })
+        ->when($request->order_by_priority, function($query) use($request){
+            $query->orderBy('priority', $request->order_by_priority);
+        })
+        // ->when($request->mim_priority && $request->max_priority, function($query) use($request){
+        //     $query->havingBetween('priority', [$request->mim_priority, $request->max_priority]);
+        // })
+        ->whereBetween('priority', [$request->mim_priority ?? 1, $request->max_priority ?? 10])
         ->get();
     }
 
@@ -36,7 +43,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $task = $request->validated();
+        $task->update($request->validated());
         return $task;
     }
     

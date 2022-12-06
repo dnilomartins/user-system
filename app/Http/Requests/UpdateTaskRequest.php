@@ -24,7 +24,8 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_name' => ['string', 'required', 'max:30']
+            'task_name' => ['string', 'required', 'max:30'],
+            'priority' => ['integer', 'required', 'between:1,10']
         ];
     }
 }
